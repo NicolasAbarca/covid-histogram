@@ -6,13 +6,12 @@ import {
   GET_REPORTS_FAILURE,
 } from './types';
 
-export const GethReports = () => (dispatch) => {
+export const GetReports = () => (dispatch) => {
   dispatch(getReportsRequest());
   axios
     .get('https://covid-api.com/api/reports')
     .then((response) => {
       const reports = response.data;
-      console.log(response.data);
       dispatch(getReportsSuccess(reports));
     })
     .catch((error) => {
