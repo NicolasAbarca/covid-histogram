@@ -12,3 +12,8 @@ export const modifyData = (data) => {
     }
   }
 };
+
+export const getShortISODate = (pDate) => {
+  const date = new Date(pDate);
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+};

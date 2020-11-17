@@ -7,23 +7,50 @@ import { connect } from 'react-redux';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
 import './Pie.css';
+
 // eslint-disable-next-line no-unused-vars
 const PieChart = ({ reportData }) => {
   // console.log('asdasdasd data', data);
   // eslint-disable-next-line no-unused-vars
   const [chartOptions, setChartOptions] = useState({
     chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
       type: 'pie',
+    },
+    title: {
+      text: 'Percentage',
+    },
+    tooltip: {
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+    },
+    accessibility: {
+      point: {
+        valueSuffix: '%',
+      },
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: false,
+        },
+        showInLegend: true,
+      },
     },
     series: [
       {
         data: [
           {
+            name: 'Confirmed cases',
             y: reportData.reports.timeline
               ? Object.values(reportData.reports.timeline.cases).pop()
               : [],
           },
           {
+            name: 'Deaths',
             y: reportData.reports.timeline
               ? Object.values(reportData.reports.timeline.deaths).pop()
               : [],

@@ -14,11 +14,14 @@ const LineChart = ({ reportData }) => {
   console.log('asdasdasd data', reportData);
   const [hoverData, setHoverData] = useState(null);
   const [chartOptions, setChartOptions] = useState({
+    title: {
+      text: 'Numbers',
+    },
     xAxis: {
       categories: reportData.reports.timeline ? Object.keys(reportData.reports.timeline.cases) : [],
     },
     series: [{
-      name: 'Confirmed cases,',
+      name: 'Confirmed cases',
       data: reportData.reports.timeline ? Object.values(reportData.reports.timeline.cases) : [],
     }, {
       name: 'Deaths',

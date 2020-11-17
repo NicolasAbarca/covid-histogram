@@ -41,7 +41,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   GetReports: () => dispatch(GetReports()),
-  GetReportsByDays: (days) => dispatch(GetReportsByDays(days)),
+  GetReportsByDays: (days, incr) => dispatch(GetReportsByDays(days, incr)),
 });
 
 export default connect(
