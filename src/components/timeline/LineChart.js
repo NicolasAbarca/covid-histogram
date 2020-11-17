@@ -1,28 +1,28 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-this-in-sfc */
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
 
 // eslint-disable-next-line no-unused-vars
-const LineChart = ({ data }) => {
-  console.log('asdasdasd data', data);
-  // eslint-disable-next-line no-debugger
-  debugger;
+const LineChart = ({ reportData }) => {
+  console.log('asdasdasd data', reportData);
   const [hoverData, setHoverData] = useState(null);
   const [chartOptions, setChartOptions] = useState({
     xAxis: {
-      categories: data.reports.timeline ? Object.keys(data.reports.timeline.cases) : [],
+      categories: reportData.reports.timeline ? Object.keys(reportData.reports.timeline.cases) : [],
     },
     series: [{
       name: 'Confirmed cases,',
-      data: data.reports.timeline ? Object.values(data.reports.timeline.cases) : [],
+      data: reportData.reports.timeline ? Object.values(reportData.reports.timeline.cases) : [],
     }, {
       name: 'Deaths',
-      data: data.reports.timeline ? Object.values(data.reports.timeline.deaths) : [],
+      data: reportData.reports.timeline ? Object.values(reportData.reports.timeline.deaths) : [],
     }],
     tooltip: {
       shared: true,
@@ -45,13 +45,13 @@ const LineChart = ({ data }) => {
     },
   });
 
-  const updateSeries = () => {
-    setChartOptions({
-      series: [
-        { data: [Math.random() * 5, 2, 1] },
-      ],
-    });
-  };
+  // const updateSeries = () => {
+  //   setChartOptions({
+  //     series: [
+  //       { data: [Math.random() * 5, 2, 1] },
+  //     ],
+  //   });
+  // };
 
   return (
     <div>
@@ -59,13 +59,14 @@ const LineChart = ({ data }) => {
         highcharts={Highcharts}
         options={chartOptions}
       />
-      <h3>
-        Hovering over
-        {hoverData}
-      </h3>
-      <button onClick={updateSeries}>Update Series</button>
     </div>
   );
 };
 
-export default LineChart;
+const mapStateToProps = (state) => ({
+  reportData: state.report,
+});
+
+export default connect(
+  mapStateToProps,
+)(LineChart);

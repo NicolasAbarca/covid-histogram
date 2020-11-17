@@ -3,11 +3,12 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
 import './Pie.css';
 // eslint-disable-next-line no-unused-vars
-const PieChart = ({ data }) => {
+const PieChart = ({ reportData }) => {
   // console.log('asdasdasd data', data);
   // eslint-disable-next-line no-unused-vars
   const [chartOptions, setChartOptions] = useState({
@@ -18,10 +19,14 @@ const PieChart = ({ data }) => {
       {
         data: [
           {
-            y: 100,
+            y: reportData.reports.timeline
+              ? Object.values(reportData.reports.timeline.cases).pop()
+              : [],
           },
           {
-            y: 50,
+            y: reportData.reports.timeline
+              ? Object.values(reportData.reports.timeline.deaths).pop()
+              : [],
           },
         ],
       },
@@ -38,4 +43,10 @@ const PieChart = ({ data }) => {
   );
 };
 
-export default PieChart;
+const mapStateToProps = (state) => ({
+  reportData: state.report,
+});
+
+export default connect(
+  mapStateToProps,
+)(PieChart);
