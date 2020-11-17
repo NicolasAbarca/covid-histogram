@@ -9,7 +9,7 @@ import {
 export const GetReports = () => (dispatch) => {
   dispatch(getReportsRequest());
   axios
-    .get('https://covid-api.com/api/reports')
+    .get('https://disease.sh/v3/covid-19/historical/USA?lastdays=all')
     .then((response) => {
       const reports = response.data;
       dispatch(getReportsSuccess(reports));

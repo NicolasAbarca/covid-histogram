@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { GetReports } from '../redux/report/actions';
 import { GetMap } from '../redux/map/actions';
 import LineChart from '../components/LineChart';
+import PieChart from '../components/PieChart';
 
 function Reports({
   // eslint-disable-next-line no-unused-vars
@@ -27,7 +28,8 @@ function Reports({
           How to Build an Application Using Reactjs and Redux
         </div>
       </div>
-      <LineChart />
+      <PieChart data={reportData} />
+      <LineChart data={reportData} />
     </div>
   );
 }
