@@ -1,6 +1,8 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/prefer-default-export */
+import moment from 'moment';
+
 export const modifyData = (data) => {
   const indexValue = Object.values(data)[0];
   for (const key in data) {
@@ -14,6 +16,10 @@ export const modifyData = (data) => {
 };
 
 export const getShortISODate = (pDate) => {
-  const date = new Date(pDate);
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  const date = moment(pDate).format('YYYY-MM-DD');
+  return date;
+};
+export const getDate = () => {
+  const date = moment().subtract(1, 'days').format('YYYY-MM-DD');
+  return date;
 };

@@ -1,3 +1,6 @@
+/* eslint-disable prefer-const */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-this-in-sfc */
 /* eslint-disable no-console */
@@ -6,39 +9,75 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import HighchartsReact from 'highcharts-react-official';
-import Highcharts from 'highcharts';
+import './style.css';
+import LoadingOverlay from 'react-loading-overlay';
 
 // eslint-disable-next-line no-unused-vars
-const LineChart = ({ reportData }) => {
-  console.log('asdasdasd data', reportData);
-  const [states, setStates] = useState([]);
-  const renderTableData = () => states.map((state, index) => {
-    const id = index;
-    const region = state.region.province;
-    return (
-      <tr key={id}>
-        <td>{id}</td>
-        <td>{region}</td>
-      </tr>
-    );
+const Table = ({ detailData }) => {
+  console.log('asdasdasd data', detailData);
+  let totalCases = 0;
+  let totalDeaths = 0;
+  let date = detailData.detail && detailData.detail[0].date;
+  // eslint-disable-next-line no-debugger
+  debugger;
+  let title = `${date} State report`;
+  const payload = detailData.detail.map((item, index) => {
+    const { confirmed, deaths, region } = item;
+    totalDeaths += deaths;
+    totalCases += confirmed;
+    return {
+      confirmed,
+      deaths,
+      province: region.province,
+    };
   });
+  const renderSpinner = () => (
+    <LoadingOverlay
+      active
+      spinner
+      text="Loading your report..."
+    />
+  );
   return (
-    <>
-      <h1 id="title">React Dynamic Table</h1>
-      <table>
-        <tbody>
-          {renderTableData()}
-        </tbody>
-      </table>
-    </>
+    detailData.loading ? renderSpinner() : detailData.error ? <h2>{detailData.error}</h2> : (
+      <div className="container">
+        <h1 id="title">
+          {title}
+        </h1>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Province</th>
+              <th>Cases</th>
+              <th>Deaths</th>
+            </tr>
+          </thead>
+          <tbody>
+            {payload.map((item, index) => (
+              <tr key={index}>
+                <td>{item.province}</td>
+                <td>{item.confirmed}</td>
+                <td>{item.deaths}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <th id="total" colSpan="1">Total :</th>
+              <td>{totalCases}</td>
+              <td>{totalDeaths}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    )
   );
 };
 
 const mapStateToProps = (state) => ({
-  reportData: state.report,
+  detailData: state.detail,
 });
 
 export default connect(
   mapStateToProps,
-)(LineChart);
+)(Table);

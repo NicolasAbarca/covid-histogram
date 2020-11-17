@@ -10,22 +10,28 @@ import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
 
 // eslint-disable-next-line no-unused-vars
-const LineChart = ({ reportData }) => {
+const LineChart = ({ reportData, onClick }) => {
   console.log('asdasdasd data', reportData);
   const [hoverData, setHoverData] = useState(null);
   const [chartOptions, setChartOptions] = useState({
     title: {
-      text: 'Numbers',
+      text: 'Timeline',
+    },
+    subtitle: {
+      text: 'Clicking a datapoint to show more details',
     },
     xAxis: {
-      categories: reportData.reports.timeline ? Object.keys(reportData.reports.timeline.cases) : [],
+      categories: reportData.reports && reportData.reports.usData
+        ? Object.keys(reportData.reports.usData.timeline.cases) : [],
     },
     series: [{
       name: 'Confirmed cases',
-      data: reportData.reports.timeline ? Object.values(reportData.reports.timeline.cases) : [],
+      data: reportData.reports && reportData.reports.usData
+        ? Object.values(reportData.reports.usData.timeline.cases) : [],
     }, {
       name: 'Deaths',
-      data: reportData.reports.timeline ? Object.values(reportData.reports.timeline.deaths) : [],
+      data: reportData.reports && reportData.reports.usData
+        ? Object.values(reportData.reports.usData.timeline.deaths) : [],
     }],
     tooltip: {
       shared: true,
@@ -39,8 +45,7 @@ const LineChart = ({ reportData }) => {
               setHoverData(e.target.category);
             },
             click() {
-              // eslint-disable-next-line no-alert
-              alert(`Category: ${this.category}, value: ${this.y}`);
+              onClick(this.category);
             },
           },
         },

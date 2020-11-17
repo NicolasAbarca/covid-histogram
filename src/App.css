@@ -41,7 +41,21 @@
   display: flex;
   justify-content: center;
 }
-
+#simple-tabpanel-0 {
+  background: #f4f4f9;
+}
+.MuiTab-textColorInherit {
+  width: 50%;
+}
+.MuiContainer-root {
+  max-width: 90% !important;
+}
+.MuiTabs-flexContainer {
+  display: unset !important;
+}
+._loading_overlay_overlay {
+  height: 95vh !important;
+}
 /* .one {
   flex: 1 1 auto;
 }

@@ -1,50 +1,78 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-filename-extension */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable no-shadow */
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { GetReports, GetReportsByDays } from '../redux/report/actions';
-import LineChart from '../components/timeline/LineChart';
-import PieChart from '../components/pie/PieChart';
-import Filters from '../components/filters/Filters';
+/* eslint-disable react/jsx-filename-extension */
+import React from 'react';
+import Container from '@material-ui/core/Container';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import USHistogram from './country';
 
-const Reports = ({
-  reportData, GetReports, GetReportsByDays,
-}) => {
-  useEffect(() => {
-    GetReports();
-  }, []);
+function TabPanel(props) {
+  const {
+    children, value, index, ...other
+  } = props;
 
   return (
-    reportData.loading ? <h2>Loading</h2> : reportData.error ? <h2>{reportData.error}</h2> : (
-      <div>
-        <div className="row">
-          <div className="col-sm-12 btn btn-info">
-            Covid Histogram with drilldown visualization
-          </div>
-          <Filters onClick={GetReportsByDays} />
-        </div>
-        <PieChart />
-        <LineChart />
-      </div>
-    )
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={2}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
 
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
+
+const Landing = () => {
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  return (
+    <Container maxWidth="sm">
+      <Box my={6}>
+        <div className={classes.root}>
+          <AppBar position="static">
+            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+              <Tab label="Item One" {...a11yProps(0)} />
+              <Tab label="Item Two" {...a11yProps(1)} />
+            </Tabs>
+          </AppBar>
+          <TabPanel value={value} index={0}>
+            <USHistogram />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            Item Two
+          </TabPanel>
+        </div>
+      </Box>
+    </Container>
   );
 };
 
-const mapStateToProps = (state) => ({
-  reportData: state.report,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  GetReports: () => dispatch(GetReports()),
-  GetReportsByDays: (days, incr) => dispatch(GetReportsByDays(days, incr)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Reports);
+export default Landing;

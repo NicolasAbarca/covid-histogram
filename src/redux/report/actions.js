@@ -6,17 +6,19 @@ import {
   GET_REPORTS_REQUEST,
   GET_REPORTS_SUCCESS,
   GET_REPORTS_FAILURE,
-  GET_DETAIL_SUCCESS,
 } from './types';
-import { modifyData, getShortISODate } from '../utils';
+import { modifyData, getDate } from '../utils';
 
 export const GetReports = () => (dispatch) => {
   dispatch(getReportsRequest());
   axios
     .get('https://disease.sh/v3/covid-19/historical/USA?lastdays=all')
     .then((response) => {
-      const reports = response.data;
-      dispatch(getReportsSuccess(reports));
+      const payload = {
+        usData: response.data,
+        stateData: null,
+      };
+      dispatch(getReportsSuccess(payload));
     })
     .catch((error) => {
       dispatch(getReportsFailure(error.message));
@@ -34,28 +36,32 @@ export const GetReportsByDays = (days, incr) => (dispatch) => {
         modifyData(cases);
         modifyData(deaths);
       }
+      const payload = {
+        usData: reports,
+        stateData: null,
+      };
 
-      dispatch(getReportsSuccess(reports));
+      dispatch(getReportsSuccess(payload));
     })
     .catch((error) => {
       dispatch(getReportsFailure(error.message));
     });
 };
 
-export const GetDetailsByFilters = (pDate, state) => (dispatch) => {
+// eslint-disable-next-line no-unused-vars
+export const GetReportByState = (state) => (dispatch) => {
   dispatch(getReportsRequest());
-  const date = getShortISODate(pDate);
-  const url = `https://covid-api.com/api/reports?&iso=USA&region_name=US&date=${date}`;
-  if (state) {
-    const pState = `&region_province=${state}`;
-    url.concat(pState);
-  }
+  const date = getDate();
+  const url = `https://covid-api.com/api/reports?&iso=USA&region_name=US&date=${date}&region_province=Oklahoma`;
   axios
     .get(url)
     .then((response) => {
-      const detail = response.data;
+      const detail = {
+        usData: null,
+        stateData: response.data,
+      };
 
-      dispatch(getDetailSuccess(detail));
+      dispatch(getReportsSuccess(detail));
     })
     .catch((error) => {
       dispatch(getReportsFailure(error.message));
@@ -74,9 +80,4 @@ export const getReportsSuccess = (reports) => ({
 export const getReportsFailure = (error) => ({
   type: GET_REPORTS_FAILURE,
   payload: error,
-});
-
-export const getDetailSuccess = (detail) => ({
-  type: GET_DETAIL_SUCCESS,
-  payload: detail,
 });

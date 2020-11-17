@@ -10,7 +10,6 @@ import './Pie.css';
 
 // eslint-disable-next-line no-unused-vars
 const PieChart = ({ reportData }) => {
-  // console.log('asdasdasd data', data);
   // eslint-disable-next-line no-unused-vars
   const [chartOptions, setChartOptions] = useState({
     chart: {
@@ -45,14 +44,14 @@ const PieChart = ({ reportData }) => {
         data: [
           {
             name: 'Confirmed cases',
-            y: reportData.reports.timeline
-              ? Object.values(reportData.reports.timeline.cases).pop()
+            y: reportData.reports && reportData.reports.usData
+              ? Object.values(reportData.reports.usData.timeline.cases).pop()
               : [],
           },
           {
             name: 'Deaths',
-            y: reportData.reports.timeline
-              ? Object.values(reportData.reports.timeline.deaths).pop()
+            y: reportData.reports && reportData.reports.usData
+              ? Object.values(reportData.reports.usData.timeline.deaths).pop()
               : [],
           },
         ],
