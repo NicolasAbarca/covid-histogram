@@ -26,6 +26,8 @@ npm start
 yarn start
 ```
 
+Then open [http://localhost:3000/](http://localhost:3000/) to see the app.
+
 ## Documentation
 
 ### the project has been created using React, Redux, Highchart
