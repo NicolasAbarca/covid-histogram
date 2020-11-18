@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import USHistogram from './country';
+import StateHistogram from './state';
 
 function TabPanel(props) {
   const {
@@ -67,7 +68,7 @@ const Landing = () => {
             <USHistogram />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            Item Two
+            <StateHistogram />
           </TabPanel>
         </div>
       </Box>

@@ -22,7 +22,7 @@ const Table = ({ detailData, hideDetail }) => {
   let date = detailData.detail.length > 0 && detailData.detail[0].date;
   // eslint-disable-next-line no-debugger
   debugger;
-  let title = `${date} State report`;
+  let title = `${date} Report by state`;
   const payload = detailData.detail.map((item, index) => {
     const { confirmed, deaths, region } = item;
     totalDeaths += deaths;

@@ -14,13 +14,14 @@ import PieChart from '../components/pie/PieChart';
 import Filters from '../components/filters/Filters';
 import Table from '../components/table/Table';
 import SearchBox from '../components/autocomplete/Autocomplete';
+import ColumnChart from '../components/column/ColumnChart';
 
 const StateHistogram = ({
-  reportData, GetReports, GetReportsByDays, GetDetailsByFilters, GetReportByState,
+  reportData, GetReports, GetDetailsByFilters, GetReportByState,
 }) => {
   const [showDrilldown, setShowDrilldown] = useState(false);
   useEffect(() => {
-    GetReports();
+    GetReportByState('Alabama');
   }, []);
 
   const loadDetail = (date) => {
@@ -35,10 +36,9 @@ const StateHistogram = ({
           Covid Histogram with drilldown visualization
         </div>
         <SearchBox onClick={GetReportByState} />
-        <Filters onClick={GetReportsByDays} />
       </div>
       <PieChart />
-      <LineChart onClick={loadDetail} />
+      <ColumnChart />
     </>
   );
   const renderDrilldown = () => (
@@ -51,7 +51,7 @@ const StateHistogram = ({
   );
 
   return (
-    reportData.reports && reportData.reports.usData
+    reportData.reports && reportData.reports.stateData
       ? reportData.loading ? <h2>Loading</h2> : reportData.error ? <h2>{reportData.error}</h2> : (
         !showDrilldown
           ? renderGraphs()
@@ -66,7 +66,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   GetReports: () => dispatch(GetReports()),
-  GetReportsByDays: (days, incr) => dispatch(GetReportsByDays(days, incr)),
   GetDetailsByFilters: (date, pState) => dispatch(GetDetailsByFilters(date, pState)),
   GetReportByState: (pState) => dispatch(GetReportByState(pState)),
 });

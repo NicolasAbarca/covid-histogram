@@ -52,7 +52,7 @@ export const GetReportsByDays = (days, incr) => (dispatch) => {
 export const GetReportByState = (state) => (dispatch) => {
   dispatch(getReportsRequest());
   const date = getDate();
-  const url = `https://covid-api.com/api/reports?&iso=USA&region_name=US&date=${date}&region_province=Oklahoma`;
+  const url = `https://covid-api.com/api/reports?&iso=USA&region_name=US&date=${date}&region_province=${state}`;
   axios
     .get(url)
     .then((response) => {

@@ -3,13 +3,12 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-
-const options = ['Option 1', 'Option 2'];
+import states from '../../resources/states.json';
 
 const SearchBox = ({ onClick }) => {
+  const options = states.map((x) => x.name);
   const [value, setValue] = useState(options[0]);
   const [inputValue, setInputValue] = React.useState('');
-
   return (
     // eslint-disable-next-line react/jsx-filename-extension
     <div>
@@ -29,7 +28,7 @@ const SearchBox = ({ onClick }) => {
         id="controllable-states-demo"
         options={options}
         style={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Controllable" variant="outlined" />}
+        renderInput={(params) => <TextField {...params} label="Select state" variant="outlined" />}
       />
     </div>
   );

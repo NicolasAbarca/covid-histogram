@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
+import { getCases, getDeaths } from './config';
 import './Pie.css';
 
 // eslint-disable-next-line no-unused-vars
@@ -20,6 +21,9 @@ const PieChart = ({ reportData }) => {
     },
     title: {
       text: 'Percentage',
+    },
+    credits: {
+      enabled: false,
     },
     tooltip: {
       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
@@ -44,15 +48,11 @@ const PieChart = ({ reportData }) => {
         data: [
           {
             name: 'Confirmed cases',
-            y: reportData.reports && reportData.reports.usData
-              ? Object.values(reportData.reports.usData.timeline.cases).pop()
-              : [],
+            y: getCases(reportData),
           },
           {
             name: 'Deaths',
-            y: reportData.reports && reportData.reports.usData
-              ? Object.values(reportData.reports.usData.timeline.deaths).pop()
-              : [],
+            y: getDeaths(reportData),
           },
         ],
       },

@@ -20,6 +20,9 @@ const LineChart = ({ reportData, onClick }) => {
     subtitle: {
       text: 'Clicking a datapoint to show more details',
     },
+    credits: {
+      enabled: false,
+    },
     xAxis: {
       categories: reportData.reports && reportData.reports.usData
         ? Object.keys(reportData.reports.usData.timeline.cases) : [],
