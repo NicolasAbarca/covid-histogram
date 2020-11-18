@@ -11,13 +11,15 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import './style.css';
 import LoadingOverlay from 'react-loading-overlay';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 // eslint-disable-next-line no-unused-vars
-const Table = ({ detailData }) => {
+const Table = ({ detailData, hideDetail }) => {
   console.log('asdasdasd data', detailData);
   let totalCases = 0;
   let totalDeaths = 0;
-  let date = detailData.detail && detailData.detail[0].date;
+  let date = detailData.detail.length > 0 && detailData.detail[0].date;
   // eslint-disable-next-line no-debugger
   debugger;
   let title = `${date} State report`;
@@ -41,6 +43,9 @@ const Table = ({ detailData }) => {
   return (
     detailData.loading ? renderSpinner() : detailData.error ? <h2>{detailData.error}</h2> : (
       <div className="container">
+        <ButtonGroup className="backButton" variant="contained" color="primary" aria-label="contained primary button group">
+          <Button onClick={() => { hideDetail(); }}>Go Back</Button>
+        </ButtonGroup>
         <h1 id="title">
           {title}
         </h1>

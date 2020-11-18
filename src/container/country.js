@@ -46,10 +46,7 @@ const USHistogram = ({
   );
   const renderDrilldown = () => (
     <>
-      <div className="row">
-        <Filters onClick={GetReportsByDays} hideDetail={hideDetail} />
-      </div>
-      <Table />
+      <Table hideDetail={hideDetail} />
     </>
   );
   const renderSpinner = () => (
