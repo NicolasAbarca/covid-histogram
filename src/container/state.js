@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-filename-extension */
@@ -6,10 +7,10 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import LoadingOverlay from 'react-loading-overlay';
+import Typography from '@material-ui/core/Typography';
 import { GetReports, GetReportsByDays, GetReportByState } from '../redux/report/actions';
 import { GetDetailsByFilters } from '../redux/detail/actions';
-
-import LineChart from '../components/timeline/LineChart';
 import PieChart from '../components/pie/PieChart';
 import Filters from '../components/filters/Filters';
 import Table from '../components/table/Table';
@@ -19,26 +20,27 @@ import ColumnChart from '../components/column/ColumnChart';
 const StateHistogram = ({
   reportData, GetReports, GetDetailsByFilters, GetReportByState,
 }) => {
+  debugger;
   const [showDrilldown, setShowDrilldown] = useState(false);
+  const [stateName, setStateName] = useState('Alabama');
+  const title = `${stateName} Situation`;
   useEffect(() => {
     GetReportByState('Alabama');
   }, []);
 
-  const loadDetail = (date) => {
-    setShowDrilldown(true);
-    GetDetailsByFilters(date);
-  };
-
   const renderGraphs = () => (
     <>
       <div className="row">
-        <div>
-          Covid Histogram with drilldown visualization
-        </div>
-        <SearchBox onClick={GetReportByState} />
+        <Typography variant="h8" component="h2" gutterBottom>
+          Covid Histogram by specific State
+        </Typography>
+        <SearchBox onClick={GetReportByState} setName={setStateName} />
       </div>
-      <PieChart />
+      <Typography variant="h8" component="h3" gutterBottom>
+        {`${stateName} Situation`}
+      </Typography>
       <ColumnChart />
+      <PieChart />
     </>
   );
   const renderDrilldown = () => (
@@ -49,14 +51,20 @@ const StateHistogram = ({
       <Table />
     </>
   );
-
+  const renderSpinner = () => (
+    <LoadingOverlay
+      active
+      spinner
+      text="Loading state report..."
+    />
+  );
   return (
     reportData.reports && reportData.reports.stateData
-      ? reportData.loading ? <h2>Loading</h2> : reportData.error ? <h2>{reportData.error}</h2> : (
+      ? reportData.loading ? renderSpinner() : reportData.error ? <h2>{reportData.error}</h2> : (
         !showDrilldown
           ? renderGraphs()
           : renderDrilldown()
-      ) : <>State</>
+      ) : renderSpinner()
   );
 };
 

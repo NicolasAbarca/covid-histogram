@@ -11,6 +11,7 @@ import './Pie.css';
 
 // eslint-disable-next-line no-unused-vars
 const PieChart = ({ reportData }) => {
+  const cases = getCases(reportData);
   // eslint-disable-next-line no-unused-vars
   const [chartOptions, setChartOptions] = useState({
     chart: {
@@ -48,7 +49,7 @@ const PieChart = ({ reportData }) => {
         data: [
           {
             name: 'Confirmed cases',
-            y: getCases(reportData),
+            y: cases,
           },
           {
             name: 'Deaths',
@@ -58,13 +59,17 @@ const PieChart = ({ reportData }) => {
       },
     ],
   });
-
+  // eslint-disable-next-line no-debugger
+  debugger;
   return (
     <div>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={chartOptions}
-      />
+      {cases > 0 ? (
+        <HighchartsReact
+          highcharts={Highcharts}
+          options={chartOptions}
+        />
+      ) : (<></>)}
+
     </div>
   );
 };

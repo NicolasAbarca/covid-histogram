@@ -69,13 +69,17 @@ const ColumnChart = ({ reportData }) => {
     },
     series: serieData,
   });
-
+  // eslint-disable-next-line no-debugger
+  debugger;
   return (
     <div>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={chartOptions}
-      />
+      {serieData.length > 0 ? (
+        <HighchartsReact
+          highcharts={Highcharts}
+          options={chartOptions}
+        />
+      ) : (<>No data found :(</>)}
+
     </div>
   );
 };

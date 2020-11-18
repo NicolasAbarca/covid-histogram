@@ -60,8 +60,8 @@ const Landing = () => {
         <div className={classes.root}>
           <AppBar position="static">
             <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-              <Tab label="Item One" {...a11yProps(0)} />
-              <Tab label="Item Two" {...a11yProps(1)} />
+              <Tab label="United States" {...a11yProps(0)} />
+              <Tab label="States" {...a11yProps(1)} />
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>

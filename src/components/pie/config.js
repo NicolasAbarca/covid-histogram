@@ -3,9 +3,9 @@ export const getCases = (data) => {
     return Object.values(data.reports.usData.timeline.cases).pop();
   } if (data.reports && data.reports.stateData) {
     const result = data.reports.stateData.data;
-    return result.length ? result[0].confirmed : [];
+    return result.length ? result[0].confirmed : 0;
   }
-  return [];
+  return 0;
 };
 
 export const getDeaths = (data) => {
@@ -13,7 +13,7 @@ export const getDeaths = (data) => {
     return Object.values(data.reports.usData.timeline.deaths).pop();
   } if (data.reports && data.reports.stateData) {
     const result = data.reports.stateData.data;
-    return result.length ? result[0].deaths : [];
+    return result.length ? result[0].deaths : 0;
   }
-  return [];
+  return 0;
 };
