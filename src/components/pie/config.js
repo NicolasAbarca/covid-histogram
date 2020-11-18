@@ -17,3 +17,53 @@ export const getDeaths = (data) => {
   }
   return 0;
 };
+
+export const getOptions = (cases, deaths) => {
+  const options = {
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: 'pie',
+    },
+    title: {
+      text: 'Percentage',
+    },
+    credits: {
+      enabled: false,
+    },
+    tooltip: {
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+    },
+    accessibility: {
+      point: {
+        valueSuffix: '%',
+      },
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: false,
+        },
+        showInLegend: true,
+      },
+    },
+    series: [
+      {
+        data: [
+          {
+            name: 'Confirmed cases',
+            y: cases,
+          },
+          {
+            name: 'Deaths',
+            y: deaths,
+          },
+        ],
+      },
+    ],
+  };
+  return options;
+};

@@ -1,29 +1,20 @@
-/* eslint-disable prefer-const */
-/* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/no-this-in-sfc */
-/* eslint-disable no-console */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/button-has-type */
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-filename-extension */
-import React, { useState } from 'react';
+
+import React from 'react';
 import { connect } from 'react-redux';
 import './style.css';
 import LoadingOverlay from 'react-loading-overlay';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 
-// eslint-disable-next-line no-unused-vars
 const Table = ({ detailData, hideDetail }) => {
-  console.log('asdasdasd data', detailData);
   let totalCases = 0;
   let totalDeaths = 0;
-  let date = detailData.detail.length > 0 && detailData.detail[0].date;
-  // eslint-disable-next-line no-debugger
-  debugger;
-  let title = `${date} Report by state`;
-  const payload = detailData.detail.map((item, index) => {
+  const date = detailData.detail.length > 0 && detailData.detail[0].date;
+  const title = `${date} Report by state`;
+  const payload = detailData.detail.map((item) => {
     const { confirmed, deaths, region } = item;
     totalDeaths += deaths;
     totalCases += confirmed;

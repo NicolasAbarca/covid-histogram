@@ -1,3 +1,0 @@
-export const GET_MAP_REQUEST = 'GET_MAP_REQUEST';
-export const GET_MAP_SUCCESS = 'GET_MAP_SUCCESS';
-export const GET_MAP_FAILURE = 'GET_MAP_FAILURE';

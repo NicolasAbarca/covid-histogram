@@ -1,10 +1,8 @@
-/* eslint-disable no-debugger */
-/* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-shadow */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable no-nested-ternary */
-/* eslint-disable no-shadow */
-/* eslint-disable react/prop-types */
+
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import LoadingOverlay from 'react-loading-overlay';
@@ -18,12 +16,10 @@ import SearchBox from '../components/autocomplete/Autocomplete';
 import ColumnChart from '../components/column/ColumnChart';
 
 const StateHistogram = ({
-  reportData, GetReports, GetDetailsByFilters, GetReportByState,
+  reportData, GetReportByState,
 }) => {
-  debugger;
   const [showDrilldown, setShowDrilldown] = useState(false);
   const [stateName, setStateName] = useState('Alabama');
-  const title = `${stateName} Situation`;
   useEffect(() => {
     GetReportByState('Alabama');
   }, []);

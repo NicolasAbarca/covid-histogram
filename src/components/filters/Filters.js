@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
-/* eslint-disable react/button-has-type */
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
@@ -19,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-// eslint-disable-next-line react/prop-types
 const Filters = ({ onClick }) => {
   const updateSeries = (days, incr) => {
     onClick(days, incr);

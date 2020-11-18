@@ -1,18 +1,20 @@
-/* eslint-disable no-prototype-builtins */
-/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-use-before-define */
+
 import axios from 'axios';
 import {
   GET_REPORTS_REQUEST,
   GET_REPORTS_SUCCESS,
   GET_REPORTS_FAILURE,
 } from './types';
-import { modifyData, getDate } from '../utils';
+import {
+  modifyData, getDate, DISEASE_BASEURL, COVID_BASEURL,
+} from '../utils';
 
 export const GetReports = () => (dispatch) => {
   dispatch(getReportsRequest());
+  const url = `${DISEASE_BASEURL}/v3/covid-19/historical/USA?lastdays=all`;
   axios
-    .get('https://disease.sh/v3/covid-19/historical/USA?lastdays=all')
+    .get(url)
     .then((response) => {
       const payload = {
         usData: response.data,
@@ -27,8 +29,9 @@ export const GetReports = () => (dispatch) => {
 
 export const GetReportsByDays = (days, incr) => (dispatch) => {
   dispatch(getReportsRequest());
+  const url = `${DISEASE_BASEURL}/v3/covid-19/historical/USA?lastdays=${days}`;
   axios
-    .get(`https://disease.sh/v3/covid-19/historical/USA?lastdays=${days}`)
+    .get(url)
     .then((response) => {
       const reports = response.data;
       const { cases, deaths } = reports.timeline;
@@ -48,11 +51,10 @@ export const GetReportsByDays = (days, incr) => (dispatch) => {
     });
 };
 
-// eslint-disable-next-line no-unused-vars
 export const GetReportByState = (state) => (dispatch) => {
   dispatch(getReportsRequest());
   const date = getDate();
-  const url = `https://covid-api.com/api/reports?&iso=USA&region_name=US&date=${date}&region_province=${state}`;
+  const url = `${COVID_BASEURL}/api/reports?&iso=USA&region_name=US&date=${date}&region_province=${state}`;
   axios
     .get(url)
     .then((response) => {

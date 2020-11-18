@@ -1,15 +1,17 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable import/prefer-default-export */
+
 import moment from 'moment';
+
+export const DISEASE_BASEURL = 'https://disease.sh';
+export const COVID_BASEURL = 'https://covid-api.com';
 
 export const modifyData = (data) => {
   const indexValue = Object.values(data)[0];
   for (const key in data) {
     if (data.hasOwnProperty(key)) {
-      // code here
       const newValue = data[key] - indexValue;
-      // eslint-disable-next-line no-param-reassign
       data[key] = newValue;
     }
   }

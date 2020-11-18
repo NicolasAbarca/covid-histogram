@@ -1,5 +1,7 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -10,7 +12,6 @@ const SearchBox = ({ onClick, setName }) => {
   const [value, setValue] = useState();
   const [inputValue, setInputValue] = React.useState('');
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <div>
       <Autocomplete
         value={value}

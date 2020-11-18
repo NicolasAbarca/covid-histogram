@@ -1,9 +1,8 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-filename-extension */
-/* eslint-disable no-nested-ternary */
 /* eslint-disable no-shadow */
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-filename-extension */
+
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import LoadingOverlay from 'react-loading-overlay';
@@ -16,7 +15,7 @@ import Filters from '../components/filters/Filters';
 import Table from '../components/table/Table';
 
 const USHistogram = ({
-  reportData, GetReports, GetReportsByDays, GetDetailsByFilters, GetReportByState,
+  reportData, GetReports, GetReportsByDays, GetDetailsByFilters,
 }) => {
   const [showDrilldown, setShowDrilldown] = useState(false);
   useEffect(() => {
@@ -37,7 +36,6 @@ const USHistogram = ({
         <div>
           United State Covid Histogram with drilldown visualization
         </div>
-        {/* <SearchBox onClick={GetReportByState} /> */}
         <Filters onClick={GetReportsByDays} />
       </div>
       <LineChart onClick={loadDetail} />

@@ -1,16 +1,17 @@
 /* eslint-disable no-use-before-define */
+
 import axios from 'axios';
 import {
   GET_DETAIL_REQUEST,
   GET_DETAIL_SUCCESS,
   GET_DETAIL_FAILURE,
 } from './types';
-import { getShortISODate } from '../utils';
+import { getShortISODate, COVID_BASEURL } from '../utils';
 
 export const GetDetailsByFilters = (pDate, state) => (dispatch) => {
   dispatch(getDetailRequest());
   const date = getShortISODate(pDate);
-  const url = `https://covid-api.com/api/reports?&iso=USA&region_name=US&date=${date}`;
+  const url = `${COVID_BASEURL}/api/reports?&iso=USA&region_name=US&date=${date}`;
   if (state) {
     const pState = `&region_province=${state}`;
     url.concat(pState);
@@ -31,9 +32,9 @@ export const getDetailRequest = () => ({
   type: GET_DETAIL_REQUEST,
 });
 
-export const getDetailSuccess = (map) => ({
+export const getDetailSuccess = (detail) => ({
   type: GET_DETAIL_SUCCESS,
-  payload: map,
+  payload: detail,
 });
 
 export const getDetailFailure = (error) => ({
